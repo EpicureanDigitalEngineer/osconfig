@@ -14,8 +14,8 @@ pattern proposed by `osconfig` is for each machine you want to put under version
   1. create a git archive (presumably private on a self-hosted instance);
   2. create a dedicate folder on the target machine (say `/config`);
   3. create a script to help you copy over the relevant configuration files in `/config/bin/collect_files.sh`;
-  4. create a manifest file `/config/data/.manifest` listing all files that should be included;
-  5. use the script to copy over the relevant configuration files in `/config/data`;
+  4. create a manifest file `/config/data/host/.manifest` listing all files that should be included; repeat for potential jails/containers that you may need to include
+  5. use the script to copy over the relevant configuration files in `/config/data/host`;
   6. put the `/config/data` folder under `git`;
   7. every time you add a configuration file to be tracked, add it to the manifest file (yes, it does require a disciplined sysadmin);
   8. if you have added a file, or changed a tracked file, run the script;
@@ -30,9 +30,9 @@ pattern proposed by `osconfig` is for each machine you want to put under version
 To put configuration files of a new machine under version control, do the following steps:
 
 ``` bash
-$ mkdir -p /config/data
+$ mkdir -p /config/data/host
 $ touch /config/data/.gitignore
-$ touch /config/data/.manifest
+$ touch /config/data/host/.manifest
 $ touch /config/data/README.md
 $ git clone https://github.com/EpicureanDigitalEngineer/osconfig.git /config/bin
 $ cd /config/data ; git init
@@ -56,7 +56,7 @@ $ cd /config/data
 $ sh /config/bin/collect_files.sh
 ```
 
-If all goes well, your configuration files are now in `/config/data`.
+If all goes well, your configuration files are now in `/config/data/host`.
 
 You may now follow your usual way to maintain the repository in `git`.
 
